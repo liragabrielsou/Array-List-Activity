@@ -11,7 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="700dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/textView"
@@ -150,15 +151,16 @@
 
         <ListView
             android:id="@+id/listaItens"
-            style="@style/Widget.AppCompat.ListView"
+            style="@style/Widget.AppCompat.ListView.Menu"
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:background="#E6000000"
-            android:backgroundTint="#FFFFFF"
             android:cacheColorHint="#000000"
-            android:listSelector="@color/purple" />
+            android:contextClickable="true"
+            android:listSelector="@color/purple"
+            android:scrollbars="vertical" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

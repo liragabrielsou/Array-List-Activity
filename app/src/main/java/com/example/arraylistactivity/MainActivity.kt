@@ -69,10 +69,21 @@ class MainActivity : AppCompatActivity() {
                 !binding.inputCellphone.text.toString().trim().isEmpty()
             ) {
 
-                database.insertUser(binding.inputUsername.text.toString(),
+                val value = database.insertUser(
+                    binding.inputUsername.text.toString(),
                     binding.inputPassword.text.toString(),
                     binding.inputEmail.text.toString(),
                     binding.inputCellphone.text.toString())
+
+                if(value > -1){
+                    Snackbar.make(
+                        binding.root,
+                        "Usuário " + binding.inputUsername.text.toString() +" foi cadastrado com sucesso!",
+                        Snackbar.LENGTH_LONG
+                    ).setBackgroundTint(resources.getColor(R.color.green))
+                        .setTextColor(resources.getColor(R.color.white))
+                        .show()
+                }
 
                 listUsers = database.readUsers()
                 adapter = setAdapter(listUsers)
@@ -107,21 +118,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Criar o evento para excluir usuarios
-        /*
+
         binding.deleteButton.setOnClickListener {
-            if (position >= 0){
-                listUsers.remove(listUsers.get(position))
-                adapter.notifyDataSetChanged()
-                ClearFields()
-                position = -1
-            }else{
-                Snackbar.make(binding.root, "Selecione um item!", Snackbar.LENGTH_LONG)
-                    .setBackgroundTint(resources.getColor(R.color.purple))
-                    .setTextColor(resources.getColor(R.color.white))
-                    .show()
+            val value = database.deleteUser((binding.id.text.toString().toInt()))
+
+            if(value != 0){
+                Snackbar.make(
+                    binding.root,
+                    "Usuário " + binding.inputUsername.text.toString() +" foi excluido com sucesso!",
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
+
+            listUsers = database.readUsers()
+            adapter = setAdapter(listUsers)
+            binding.listaItens.adapter = adapter
+
+            ClearFields()
         }
-        */
 
         //adapter.notifyDataSetChanged()
         adapter = setAdapter(listUsers)
@@ -139,10 +153,6 @@ class MainActivity : AppCompatActivity() {
         binding.inputPassword.setText("")
         binding.inputEmail.setText("")
         binding.inputCellphone.setText("")
-    }
-
-    fun updateListView(){
-
     }
 
     fun setAdapter(array:List<User>): ArrayAdapter<User>{

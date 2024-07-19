@@ -86,6 +86,10 @@ class MyDatabaseHelper(context: Context):
         )
     }
 
+    fun deleteUser(id:Int):Int{
+        return writableDatabase.delete("user","idUser = ?", arrayOf(id.toString()))
+    }
+
     }
 
 
