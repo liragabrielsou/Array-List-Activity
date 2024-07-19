@@ -5,48 +5,109 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="660dp"
+        android:layout_height="700dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="170dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif-condensed-medium"
+            android:fontFamily="sans-serif-smallcaps"
             android:text="Cadastrar Cliente"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
             android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp">
+            android:layout_marginTop="10dp"
+            android:textColorHint="#FFFFFF">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username"
+                android:id="@+id/input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/person_24px"
-                android:hint="Usuario" />
+                android:drawableTint="#FFFFFF"
+                android:fontFamily="sans-serif-smallcaps"
+                android:hint=" Usuario"
+                android:inputType="text|textShortMessage"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:textColorHint="#FFFFFF">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password"
+                android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/password_24px"
-                android:hint="Senha" />
+                android:drawableTint="#FFFFFF"
+                android:fontFamily="sans-serif-smallcaps"
+                android:hint=" Senha"
+                android:inputType="text|textPassword"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColorHint="#FFFFFF">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableLeft="@drawable/mail_24px"
+                android:drawableTint="#FFFFFF"
+                android:fontFamily="sans-serif-smallcaps"
+                android:hint="  Email"
+                android:inputType="text|textEmailAddress"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColorHint="#FFFFFF">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_cellphone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableStart="@drawable/call_24px"
+                android:drawableTint="#FFFFFF"
+                android:fontFamily="sans-serif-smallcaps"
+                android:hint=" Telefone"
+                android:inputType="number"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -56,6 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-smallcaps"
             android:text="Cadastrar" />
 
         <LinearLayout
@@ -70,6 +132,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="ATUALIZAR" />
 
             <Button
@@ -80,6 +143,7 @@
                 android:layout_marginLeft="20dp"
                 android:backgroundTint="#B11E1E"
                 android:drawableBottom="@drawable/delete_24px"
+                android:drawableTint="#FFFFFF"
                 android:gravity="center_horizontal|center_vertical"
                 app:iconGravity="start" />
         </LinearLayout>
@@ -91,7 +155,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:background="#607173D8" />
+            android:background="#E6000000"
+            android:backgroundTint="#FFFFFF"
+            android:cacheColorHint="#000000"
+            android:listSelector="@color/purple" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

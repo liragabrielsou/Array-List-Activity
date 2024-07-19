@@ -21,8 +21,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val listUsers = ArrayList<User>()
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listUsers)
+        val database = MyDatabaseHelper(this)
+
+        var listUsers = database.readUsers()
+        var adapter = setAdapter(listUsers)
 
         binding.listaItens.adapter = adapter
 
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         lista.get(3)
 
         //Verificar a existencia de um item na lista
-        lista.contains(5)
+        listUsers.contains(binding.username.text.toString())
 
         //Remover um item da lista
         lista.remove(100)
@@ -50,24 +52,34 @@ class MainActivity : AppCompatActivity() {
          */
 
         binding.listaItens.setOnItemClickListener { parent, view, position, id ->
-            binding.username.setText(listUsers.get(position).username)
-            binding.password.setText(listUsers.get(position).password)
+            binding.id.text = listUsers.get(position).id.toString()
+            binding.inputUsername.setText(listUsers.get(position).username)
+            binding.inputPassword.setText(listUsers.get(position).password)
+            binding.inputEmail.setText(listUsers.get(position).email)
+            binding.inputCellphone.setText(listUsers.get(position).cellphone)
             this.position = position
         }
 
+
         //Atualizar o evento de cadastrar verficando se a conta de usuario ja existe
         binding.registerButton.setOnClickListener {
-            if (!binding.username.text.toString().trim().isEmpty() &&
-                !binding.password.text.toString().trim().isEmpty()
+            if (!binding.inputUsername.text.toString().trim().isEmpty() &&
+                !binding.inputPassword.text.toString().trim().isEmpty()&&
+                !binding.inputEmail.text.toString().trim().isEmpty()&&
+                !binding.inputCellphone.text.toString().trim().isEmpty()
             ) {
 
-                listUsers.add(
-                    User(
-                        binding.username.text.toString(),
-                        binding.password.text.toString()
-                    )
-                )
-                adapter.notifyDataSetChanged()
+                database.insertUser(binding.inputUsername.text.toString(),
+                    binding.inputPassword.text.toString(),
+                    binding.inputEmail.text.toString(),
+                    binding.inputCellphone.text.toString())
+
+                listUsers = database.readUsers()
+                adapter = setAdapter(listUsers)
+                binding.listaItens.adapter = adapter
+
+                //adapter.notifyDataSetChanged()
+                ClearFields()
             } else {
                 Snackbar.make(binding.root, "Campos Vazios!", Snackbar.LENGTH_LONG)
                     .setBackgroundTint(resources.getColor(R.color.purple))
@@ -77,27 +89,30 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.updateButton.setOnClickListener {
-            if (position >= 0) {
-                listUsers.get(position).username = binding.username.text.toString().trim()
-                listUsers.get(position).password = binding.password.text.toString().trim()
+            var id = binding.id.text.toString().toInt()
+            var nome = binding.inputUsername.text.toString()
+            var telefone = binding.inputCellphone.text.toString()
+            var email = binding.inputEmail.text.toString()
+            var senha = binding.inputPassword.text.toString()
 
-                adapter.notifyDataSetChanged()
+            var user = User(id,nome,senha,email,telefone)
 
-                binding.username.setText("")
-                binding.password.setText("")
+            database.updateUser(user)
 
-                position = -1
-            }else{}
+            listUsers = database.readUsers()
+            adapter = setAdapter(listUsers)
+            binding.listaItens.adapter = adapter
+
+            ClearFields()
         }
 
         //Criar o evento para excluir usuarios
-
+        /*
         binding.deleteButton.setOnClickListener {
             if (position >= 0){
                 listUsers.remove(listUsers.get(position))
                 adapter.notifyDataSetChanged()
-                binding.username.setText("")
-                binding.password.setText("")
+                ClearFields()
                 position = -1
             }else{
                 Snackbar.make(binding.root, "Selecione um item!", Snackbar.LENGTH_LONG)
@@ -106,17 +121,31 @@ class MainActivity : AppCompatActivity() {
                     .show()
             }
         }
+        */
 
+        //adapter.notifyDataSetChanged()
+        adapter = setAdapter(listUsers)
 
-        adapter.notifyDataSetChanged()
-
-        binding.username.setText("")
-        binding.password.setText("")
+        ClearFields()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+    fun ClearFields(){
+        binding.inputUsername.setText("")
+        binding.inputPassword.setText("")
+        binding.inputEmail.setText("")
+        binding.inputCellphone.setText("")
+    }
+
+    fun updateListView(){
+
+    }
+
+    fun setAdapter(array:List<User>): ArrayAdapter<User>{
+        return ArrayAdapter(this, android.R.layout.simple_list_item_1,array)
     }
 }
